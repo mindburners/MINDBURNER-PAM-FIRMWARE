@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mindburner PAM — Firmware Installer</title>
+<script type="module" src="https://unpkg.com/esp-web-tools@9/dist/web/install-button.js?module"></script>
+<style>
+  body {
+    font-family: -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
+    max-width: 480px;
+    margin: 70px auto;
+    text-align: center;
+    color: #222;
+    padding: 0 20px;
+  }
+  h1 { font-size: 1.4em; margin-bottom: 0.2em; }
+  .sub { color: #666; margin-bottom: 30px; }
+  ol { text-align: left; color: #444; line-height: 1.6; }
+  .browser-note {
+    margin-top: 30px;
+    font-size: 0.85em;
+    color: #999;
+    border-top: 1px solid #eee;
+    padding-top: 16px;
+  }
+  esp-web-install-button {
+    display: block;
+    margin: 20px 0;
+  }
+</style>
+</head>
+<body>
+  <h1>Mindburner PAM</h1>
+  <p class="sub">Firmware Installer</p>
+
+  <ol>
+    <li>Connect PAM to your computer with a USB cable</li>
+    <li>Click the button below</li>
+    <li>Choose the correct port when prompted, then click <b>Install</b></li>
+  </ol>
+
+  <esp-web-install-button manifest="manifest.json"></esp-web-install-button>
+
+  <p class="browser-note">
+    Works in Google Chrome, Microsoft Edge, or Opera.<br>
+    Not supported in Safari or Firefox.
+  </p>
+</body>
+</html>
