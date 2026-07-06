@@ -1,6 +1,6 @@
 {
   "name": "Mindburner PAM Firmware",
-  "version": "xx",
+  "version": "3.1",
   "new_install_prompt_erase": true,
   "builds": [
     {
