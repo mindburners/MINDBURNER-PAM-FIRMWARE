@@ -1,58 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mindburner PAM — Firmware Installer</title>
-<script type="module" src="https://unpkg.com/esp-web-tools@9/dist/web/install-button.js?module"></script>
-<style>
-  body {
-    font-family: -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
-    max-width: 480px;
-    margin: 60px auto;
-    text-align: center;
-    color: #eee;
-    background: #0c0c0c;
-    padding: 0 20px 50px;
-  }
-  img.logo {
-    width: 150px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-  }
-  h1 { font-size: 1.4em; margin-bottom: 0.1em; letter-spacing: 0.5px; }
-  .sub { color: #999; margin-bottom: 30px; }
-  ol { text-align: left; color: #ccc; line-height: 1.6; }
-  .browser-note {
-    margin-top: 30px;
-    font-size: 0.85em;
-    color: #777;
-    border-top: 1px solid #2a2a2a;
-    padding-top: 16px;
-  }
-  esp-web-install-button {
-    display: block;
-    margin: 24px 0;
-  }
-  a { color: #ff3b30; }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAM — Firmware Installer</title>
+  <script type="module" src="https://unpkg.com/esp-web-tools@9/dist/web/install-button.js?module"></script>
+  
+  <style>
+    body {
+      font-family: -apple-system, Segoe UI, Helvetica, Arial, sans-serif;
+      max-width: 520px;
+      margin: 60px auto;
+      text-align: center;
+      color: #eee;
+      background: #0c0c0c;
+      padding: 0 20px 50px;
+      line-height: 1.5;
+    }
+    img.logo {
+      width: 140px;
+      margin: 20px 0 10px;
+    }
+    h1 { 
+      font-size: 1.5em; 
+      margin-bottom: 0.2em; 
+    }
+    .sub { 
+      color: #aaa; 
+      margin-bottom: 25px; 
+      font-size: 1.15em;
+    }
+    ol { 
+      text-align: left; 
+      color: #ccc; 
+      max-width: 420px;
+      margin: 0 auto 30px;
+      padding-left: 20px;
+    }
+    .changelog {
+      text-align: left;
+      max-width: 420px;
+      margin: 40px auto;
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #333;
+    }
+    .changelog h3 {
+      margin-top: 0;
+      color: #ffcc00;
+    }
+    .changelog ul {
+      padding-left: 20px;
+      text-align: left;
+    }
+    esp-web-install-button {
+      display: block;
+      margin: 30px auto;
+    }
+    .browser-note {
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
 </head>
 <body>
-  <img class="logo" src="logo.png" alt="Mindburner logo">
+  <img class="logo" src="logo.png" alt="Logo">
+
   <h1>PAM</h1>
-  <p class="sub">Firmware Installer</p>
+  <p class="sub">Firmware Installer — <strong id="version-display">Loading...</strong></p>
 
   <ol>
-    <li>Connect PAM to your computer with a USB cable</li>
+    <li>Connect your device via USB</li>
     <li>Click the button below</li>
-    <li>Choose the correct port when prompted, then click <b>Install</b></li>
+    <li>Select the correct COM port and click <strong>Install</strong></li>
   </ol>
 
-  <esp-web-install-button manifest="manifest.json"></esp-web-install-button>
+  <esp-web-install-button 
+    manifest="manifest.json">
+  </esp-web-install-button>
+
+  <!-- Changelog Section -->
+  <div class="changelog">
+    <h3>What's New</h3>
+    <ul id="changelog-list">
+      
+
+<!-- Update this list when you release new versions -->
+      <li><strong>2.1</strong> - Major improvements</li>
+      <li><strong>2.0</strong> - Initial public release</li>
+    </ul>
+  </div>
 
   <p class="browser-note">
-    Works in Google Chrome, Microsoft Edge, or Opera.<br>
-    Not supported in Safari or Firefox.
+    Best used in Chrome / Edge<br>
+    <small>Version is automatically loaded from manifest.json</small>
   </p>
+
+  <script>
+    async function loadVersion() {
+      try {
+        const ts = Date.now();
+        const res = await fetch(`manifest.json?ts=${ts}`);
+        const data = await res.json();
+        
+        const ver = data.version || "Latest";
+        document.getElementById('version-display').textContent = `Version ${ver}`;
+      } catch (err) {
+        document.getElementById('version-display').textContent = "Latest Version";
+      }
+    }
+    window.addEventListener('load', loadVersion);
+  </script>
 </body>
 </html>
